@@ -156,13 +156,19 @@ In this task, you will configure the LOD VM as an Azure DevOps self-hosting agen
 1.  In the browser window displaying the list of projects, click the tile representing your **Configuring Agent Pools and Understanding Pipeline Styles** project. 
 1.  On the **Configuring Agent Pools and Understanding Pipeline Styles** pane, in the vertical navigational pane on the left side, in the **Pipelines** section, click **Pipelines**. 
 1.  On the **Recent** tab of the **Pipelines** pane, select **PartsUnlimited** and, on the **PartsUnlimited** pane, select **Edit**.
-1.  On the **PartsUnlimited** edit pane, in the existing YAML-based pipeline, replace line  `vmImage: windows-2019` designating the target agent pool the following content, designating the newly created self-hosted agent pool:
-
+1.  On the **PartsUnlimited** edit pane, in the existing YAML-based pipeline, replace lines 9-10, which designate the target agent pool
     ```yaml
-    name: az400m05l05a-pool
-    demands:
-    - agent.name -equals az400m05-vm0
+    pool:
+      vmImage: windows-2019
     ```
+     with the following content, designating the newly created self-hosted agent pool:
+    ```yaml
+    pool:
+      name: az400m05l05a-pool
+      demands:
+      - agent.name -equals az400m05-vm0
+    ```
+    > **Note**: Assure the new lines maintain the proper double space indentation or the build will fail.
 1. For `Task: NugetInstaller@0`, click on **Settings (link that is displaying above the task in grey colour)**, modify **Version of NuGet.exe to install** > **4.0.0**  and click on **Add**. 
 1.  On the **PartsUnlimited** edit pane, in the upper right corner of the pane, click **Save** and, on the **Save** pane, click **Save** again. This will automatically trigger the build based on this pipeline. 
 1.  In the Azure DevOps portal, in the vertical navigational pane on the left side, in the **Pipelines** section, click **Pipelines**.
